@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:github_stars/resources/custom_colors.dart';
 
 AppBar defaultAppBar() {
   return AppBar(
-    toolbarHeight: 100,
     title: Text('My App Bar'),
-    backgroundColor: Colors.green,
+    backgroundColor: CustomColors.primaryColor,
   );
 }

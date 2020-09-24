@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_stars/presentation/home_widget.dart';
+import 'package:github_stars/presentation/home/home_widget.dart';
 
 class MyApp extends StatelessWidget {
   @override
