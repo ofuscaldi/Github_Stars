@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:github_stars/domain/home/model/owner.dart';
 import 'package:github_stars/resources/custom_colors.dart';
 
 class OwnerInfosWidget extends StatelessWidget {
+  OwnerInfosWidget({@required this.owner});
+
+  final Owner owner;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,11 +29,11 @@ class OwnerInfosWidget extends StatelessWidget {
                     width: 150,
                   ),
                 ),
-                Text('Name'),
-                Text('Email'),
-                Text('URL'),
-                Text('Location'),
-                Text('Bio')
+                Text(owner.name),
+                Text(owner.email),
+                Text(owner.url),
+                Text(owner.location),
+                Text(owner.bio)
               ],
             ),
             MaterialButton(

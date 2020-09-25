@@ -76,7 +76,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     if (state is HomeLoadingState) {
       return LoadingWidget();
     } else if (state is ShowOwnerInfoState) {
-      return OwnerInfosWidget();
+      return OwnerInfosWidget(owner: state.owner,);
     }
     return Container(
       child: Center(child: Text('Enter the username in the field above')),
