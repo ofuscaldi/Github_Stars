@@ -29,11 +29,16 @@ class OwnerInfosWidget extends StatelessWidget {
                     width: 150,
                   ),
                 ),
-                Text(owner.name),
-                Text(owner.email),
-                Text(owner.url),
-                Text(owner.location),
-                Text(owner.bio)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Nickname: ${formatText(owner.login)}'),
+                    Text('Email: ${formatText(owner.email)}'),
+                    Text('URL: ${formatText(owner.url)}'),
+                    Text('Localização: ${formatText(owner.location)}'),
+                    Text('Biografia: ${formatText(owner.bio)}')
+                  ],
+                ),
               ],
             ),
             MaterialButton(
@@ -45,5 +50,9 @@ class OwnerInfosWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String formatText(String text) {
+    return text != null && text != '' ? text : '-';
   }
 }

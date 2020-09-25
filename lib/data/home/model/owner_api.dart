@@ -1,10 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:github_stars/data/home/model/owner_api.dart';
 import 'package:github_stars/data/home/model/repo_api.dart';
-import 'package:github_stars/domain/home/model/repo.dart';
 
-class Owner {
-  Owner(
+class OwnerApi {
+  OwnerApi(
       {this.login,
       this.email,
       this.url,
@@ -13,17 +10,17 @@ class Owner {
       this.bio,
       this.starredRepos});
 
-  factory Owner.fromApi(OwnerApi api) {
-    return Owner(
-        login: api.login,
-        email: api.email,
-        url: api.url,
-        avatarUrl: api.avatarUrl,
-        location: api.location,
-        bio: api.bio,
-        starredRepos:
-            (api.starredRepos).map((RepoApi repoApi) => Repo.fromApi(repoApi)).toList());
-  }
+  factory OwnerApi.fromJson(Map<String, dynamic> json) => OwnerApi(
+      login: json['login'] as String,
+      email: json['email'] as String,
+      url: json['url'] as String,
+      avatarUrl: json['avatarUrl'] as String,
+      location: json['location'] as String,
+      bio: json['bio'] as String,
+      starredRepos: (json['starredRepositories']['nodes'] as List)
+          .map((dynamic e) =>
+              e == null ? null : RepoApi.fromJson(e as Map<String, dynamic>))
+          .toList());
 
   final String login;
   final String email;
@@ -31,12 +28,12 @@ class Owner {
   final String avatarUrl;
   final String location;
   final String bio;
-  final List<Repo> starredRepos;
+  final List<RepoApi> starredRepos;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Owner &&
+      other is OwnerApi &&
           runtimeType == other.runtimeType &&
           login == other.login &&
           email == other.email &&
@@ -44,7 +41,7 @@ class Owner {
           avatarUrl == other.avatarUrl &&
           location == other.location &&
           bio == other.bio &&
-          listEquals(starredRepos, other.starredRepos);
+          starredRepos == other.starredRepos;
 
   @override
   int get hashCode =>
