@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:github_stars/data/home/model/owner_api.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -28,11 +29,12 @@ class HomeClient {
   }
 }''';
 
-  Stream<OwnerApi> getOwner() {
+  Stream<OwnerApi> getOwner({@required String owner}) {
+    print(owner);
     return _graphQLClient
         .query(QueryOptions(
             documentNode: gql(_getOwnerQuery),
-            variables: <String, String>{'user': 'ofuscaldi'}))
+            variables: <String, String>{'user': owner}))
         .asStream()
         .map((QueryResult result) {
           return OwnerApi.fromJson(result.data['repositoryOwner']);

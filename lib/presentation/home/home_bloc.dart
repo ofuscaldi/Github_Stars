@@ -13,7 +13,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is SearchOwnerEvent) {
-      await for (final Result<Owner> result in _getOwnerUseCase.execute()) {
+      print(event.owner);
+      await for (final Result<Owner> result in _getOwnerUseCase.execute(owner: event.owner)) {
         if(result.succeeded()){
           final success = result as Success<Owner>;
           yield ShowOwnerInfoState(owner: success.data);

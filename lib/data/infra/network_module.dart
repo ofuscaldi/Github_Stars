@@ -9,7 +9,7 @@ HttpLink _provideHttpLink() {
 
 AuthLink _provideAuthLink() {
   const _BEARER_TOKEN =
-      'a7028abfd0bc8b6e20ec30661b3a415e29d10308'; //Personal token '-'
+      'e70df6c09b2ccaf48159a57325a027c9aa4b1ff9'; //Personal token '-'
   final authLink = AuthLink(getToken: () async => 'Bearer $_BEARER_TOKEN');
   return authLink;
 }
