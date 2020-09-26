@@ -11,10 +11,14 @@ class RepositoryItemWidget extends StatelessWidget {
     return Container(height: 100, width: 100, color: Colors.purple,
      child: Column(
        children: [
-         Text(repo.name ?? ''),
-         Text(repo.description ?? ''),
-         Text(repo.stars.toString() ?? '')
+         Text('Name: $_formatText(repo.name)'),
+         Text('Description: $_formatText(repo.description)'),
+         Text(_formatText(repo.stars.toString()))
        ],
      ),);
+  }
+
+  String _formatText(String text) {
+    return text != null && text != '' ? text : '-';
   }
 }

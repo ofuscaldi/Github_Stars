@@ -48,11 +48,11 @@ class OwnerInfosWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nickname: ${formatText(owner.login)}'),
-                      Text('Email: ${formatText(owner.email)}'),
-                      Text('URL: ${formatText(owner.url)}'),
-                      Text('Localização: ${formatText(owner.location)}'),
-                      Text('Biografia: ${formatText(owner.bio)}')
+                      Text('Nickname: ${_formatText(owner.login)}'),
+                      Text('Email: ${_formatText(owner.email)}'),
+                      Text('URL: ${_formatText(owner.url)}'),
+                      Text('Location: ${_formatText(owner.location)}'),
+                      Text('Bio: ${_formatText(owner.bio)}')
                     ],
                   ),
                 ),
@@ -71,7 +71,7 @@ class OwnerInfosWidget extends StatelessWidget {
     );
   }
 
-  String formatText(String text) {
+  String _formatText(String text) {
     return text != null && text != '' ? text : '-';
   }
 }
