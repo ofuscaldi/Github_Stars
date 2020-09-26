@@ -6,11 +6,12 @@ import 'package:github_stars/domain/result/result.dart';
 class GetOwnerUseCase {
   GetOwnerUseCase(this._repository);
 
-  HomeRepository _repository;
+  final HomeRepository _repository;
 
-  Stream<Result<Owner>> execute({@required String owner}) {
-    print(owner);
-    return _repository.getOwner(owner: owner).map((Owner owner) =>
-        owner != null ? Result.success(data: owner) : Result.error());
+  Future<Result<Owner>> execute({@required String owner}) {
+    return _repository.getOwner(owner: owner).then((Owner owner) =>
+        Result.success(data: owner)).catchError((dynamic error){
+          return Result.error(exception: error);
+    });
   }
 }

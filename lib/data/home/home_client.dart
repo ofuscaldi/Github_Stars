@@ -29,15 +29,15 @@ class HomeClient {
   }
 }''';
 
-  Stream<OwnerApi> getOwner({@required String owner}) {
-    print(owner);
-    return _graphQLClient
+  Future<OwnerApi> getOwner({@required String owner}) async {
+    final queryResult = await  _graphQLClient
         .query(QueryOptions(
             documentNode: gql(_getOwnerQuery),
-            variables: <String, String>{'user': owner}))
-        .asStream()
-        .map((QueryResult result) {
-          return OwnerApi.fromJson(result.data['repositoryOwner']);
-    });
+            variables: <String, String>{'user': owner}));
+    final Object repositoryOwner = queryResult.data['repositoryOwner'];
+    if(repositoryOwner == null || queryResult.hasException){
+      return Future.error('error');
+    }
+    return OwnerApi.fromJson(repositoryOwner);
   }
 }
