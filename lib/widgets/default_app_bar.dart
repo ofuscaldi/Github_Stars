@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:github_stars/resources/custom_colors.dart';
 
-AppBar defaultAppBar() {
+AppBar defaultAppBar({String title}) {
   return AppBar(
-    title: const Text('GitHub Stars'),
+    title: Text(title),
     centerTitle: true,
     backgroundColor: CustomColors.primaryColor,
   );

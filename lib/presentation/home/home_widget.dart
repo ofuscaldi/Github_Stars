@@ -32,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppBar(),
+      appBar: defaultAppBar(title: 'GitHub Stars'),
       body: Column(
         children: [
           Padding(

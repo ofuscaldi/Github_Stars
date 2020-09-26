@@ -1,11 +1,10 @@
-import 'package:github_stars/data/home/model/repo_api.dart';
+class RepositoryApi {
+  RepositoryApi({this.name, this.description, this.stars});
 
-class Repo {
-  Repo({this.name, this.description, this.stars});
-
-  factory Repo.fromApi(RepoApi api) {
-    return Repo(name: api.name, description: api.description, stars: api.stars);
-  }
+  factory RepositoryApi.fromJson(Map<String, dynamic> json) => RepositoryApi(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      stars: json['stargazers']['totalCount'] as int);
 
   final String name;
   final String description;
@@ -14,7 +13,7 @@ class Repo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Repo &&
+      other is RepositoryApi &&
           runtimeType == other.runtimeType &&
           name == other.name &&
           description == other.description &&

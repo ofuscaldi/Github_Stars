@@ -1,4 +1,4 @@
-import 'package:github_stars/data/home/model/repo_api.dart';
+import 'package:github_stars/data/home/model/repository_api.dart';
 
 class OwnerApi {
   OwnerApi(
@@ -19,7 +19,7 @@ class OwnerApi {
       bio: json['bio'] as String,
       starredRepos: (json['starredRepositories']['nodes'] as List)
           .map((dynamic e) =>
-              e == null ? null : RepoApi.fromJson(e as Map<String, dynamic>))
+              e == null ? null : RepositoryApi.fromJson(e as Map<String, dynamic>))
           .toList());
 
   final String login;
@@ -28,7 +28,7 @@ class OwnerApi {
   final String avatarUrl;
   final String location;
   final String bio;
-  final List<RepoApi> starredRepos;
+  final List<RepositoryApi> starredRepos;
 
   @override
   bool operator ==(Object other) =>

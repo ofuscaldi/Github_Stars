@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:github_stars/core/di/service_locator.dart';
 import 'package:github_stars/domain/home/model/owner.dart';
+import 'package:github_stars/presentation/home/navigation/home_navigator.dart';
 import 'package:github_stars/resources/custom_colors.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -58,7 +60,9 @@ class OwnerInfosWidget extends StatelessWidget {
             ),
             MaterialButton(
               child: const Text('Starred Repos'),
-              onPressed: () {},
+              onPressed: () {
+                sl.get<HomeNavigator>().openStarredRepositories(context, owner: owner);
+              },
               textColor: Colors.blue,
             )
           ],

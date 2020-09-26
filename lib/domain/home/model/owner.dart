@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:github_stars/data/home/model/owner_api.dart';
-import 'package:github_stars/data/home/model/repo_api.dart';
-import 'package:github_stars/domain/home/model/repo.dart';
+import 'package:github_stars/data/home/model/repository_api.dart';
+import 'package:github_stars/domain/home/model/repository.dart';
 
 class Owner {
   Owner(
@@ -22,7 +22,7 @@ class Owner {
         location: api.location,
         bio: api.bio,
         starredRepos:
-            (api.starredRepos).map((RepoApi repoApi) => Repo.fromApi(repoApi)).toList());
+            (api.starredRepos).map((RepositoryApi repoApi) => Repository.fromApi(repoApi)).toList());
   }
 
   final String login;
@@ -31,7 +31,7 @@ class Owner {
   final String avatarUrl;
   final String location;
   final String bio;
-  final List<Repo> starredRepos;
+  final List<Repository> starredRepos;
 
   @override
   bool operator ==(Object other) =>
