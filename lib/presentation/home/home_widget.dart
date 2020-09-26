@@ -14,6 +14,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   HomeBloc _bloc;
+  final _formKey = GlobalKey<FormState>();
 
   TextEditingController _ownerController = TextEditingController();
 
@@ -38,19 +39,34 @@ class _HomeWidgetState extends State<HomeWidget> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                    child: TextField(
-                  controller: _ownerController,
+                    child: Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'This field cannot be empty!';
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: const InputDecoration(labelText: 'Owner'),
+                    controller: _ownerController,
+                  ),
                 )),
                 FlatButton(
                   child: Text('Search'),
                   onPressed: () {
-                    _bloc.add(SearchOwnerEvent(owner: _ownerController.text));
+                    if (_formKey.currentState.validate()) {
+                      _bloc.add(SearchOwnerEvent(owner: _ownerController.text));
+                    } else {
+                      print('wtf');
+                    }
                   },
                 )
               ],
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8),
           ),
           Expanded(
@@ -76,7 +92,9 @@ class _HomeWidgetState extends State<HomeWidget> {
     if (state is HomeLoadingState) {
       return LoadingWidget();
     } else if (state is ShowOwnerInfoState) {
-      return OwnerInfosWidget(owner: state.owner,);
+      return OwnerInfosWidget(
+        owner: state.owner,
+      );
     }
     return Container(
       child: Center(child: Text('Enter the username in the field above')),
