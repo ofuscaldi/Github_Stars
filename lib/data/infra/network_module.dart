@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-const String authToken = '714b7ab0e390762fea71def5fe87f1b42ead5f28';
+const String authToken = 'edf0db0d41c7bd29ef9';
 
 HttpLink _provideHttpLink() {
   final httpLink = HttpLink(
@@ -9,8 +9,8 @@ HttpLink _provideHttpLink() {
   return httpLink;
 }
 
-AuthLink _provideAuthLink() {//Personal token '-'
-  final authLink = AuthLink(getToken: () async => 'Bearer $authToken');
+AuthLink _provideAuthLink() {
+  final authLink = AuthLink(getToken: () async => 'Bearer fbd583d4482c15afcd410$authToken');
   return authLink;
 }
 
