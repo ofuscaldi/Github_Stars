@@ -5,7 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 class HomeClient {
   HomeClient(this._graphQLClient);
 
-  GraphQLClient _graphQLClient;
+  final GraphQLClient _graphQLClient;
 
   final String _getOwnerQuery = r''' query ($user:String!){
   repositoryOwner(login: $user) {
@@ -30,12 +30,11 @@ class HomeClient {
 }''';
 
   Future<OwnerApi> getOwner({@required String owner}) async {
-    final queryResult = await  _graphQLClient
-        .query(QueryOptions(
-            documentNode: gql(_getOwnerQuery),
-            variables: <String, String>{'user': owner}));
+    final queryResult = await _graphQLClient.query(QueryOptions(
+        documentNode: gql(_getOwnerQuery),
+        variables: <String, String>{'user': owner}));
     final Object repositoryOwner = queryResult.data['repositoryOwner'];
-    if(repositoryOwner == null || queryResult.hasException){
+    if (repositoryOwner == null || queryResult.hasException) {
       return Future.error('error');
     }
     return OwnerApi.fromJson(repositoryOwner);

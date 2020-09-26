@@ -10,16 +10,13 @@ class RepositoryWidget extends StatelessWidget {
         height: 200,
         child: Column(
           children: [
-            Text('Repo Name'),
+            const Text('Repo Name'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: Text('Repo Name Text Size TestText Size TestText Size TestText Size TestText Size Test',)),
+                const Expanded(child: Text('Repo description')),
                 Row(
-                  children: [
-                    Icon(Icons.star_border),
-                    Text('1')
-                  ],
+                  children: const <Widget>[Icon(Icons.star_border), Text('1')],
                 )
               ],
             ),

@@ -5,6 +5,7 @@ import 'package:github_stars/presentation/home/bloc/home_state.dart';
 import 'package:github_stars/presentation/home/home_bloc.dart';
 import 'package:github_stars/presentation/home/owner_infos_widget.dart';
 import 'package:github_stars/widgets/default_app_bar.dart';
+import 'package:github_stars/widgets/failed_request_widget.dart';
 import 'package:github_stars/widgets/loading_widget.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   HomeBloc _bloc;
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _ownerController = TextEditingController();
+  final TextEditingController _ownerController = TextEditingController();
 
   @override
   void initState() {
@@ -54,12 +55,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                 )),
                 FlatButton(
-                  child: Text('Search'),
+                  child: const Text('Search'),
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
                       _bloc.add(SearchOwnerEvent(owner: _ownerController.text));
-                    } else {
-                      print('wtf');
                     }
                   },
                 )
@@ -74,12 +74,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               initialData: HomeLoadedState(),
               stream: _bloc,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot is HomeFailedState) {
-                  //TODO: Failed View
-                  return Container();
-                } else {
-                  return buildLayout(snapshot.data);
-                }
+                return buildLayout(snapshot.data);
               },
             ),
           ),
@@ -89,7 +84,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Widget buildLayout(HomeState state) {
-    if (state is HomeLoadingState) {
+    if (state is HomeFailedState) {
+      return FailedRequestWidget();
+    } else if (state is HomeLoadingState) {
       return LoadingWidget();
     } else if (state is ShowOwnerInfoState) {
       return OwnerInfosWidget(
@@ -97,7 +94,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       );
     }
     return Container(
-      child: Center(child: Text('Enter the username in the field above')),
+      child: const Center(child: Text('Enter the username in the field above')),
     );
   }
 }

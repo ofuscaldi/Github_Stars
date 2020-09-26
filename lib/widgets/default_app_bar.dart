@@ -3,7 +3,8 @@ import 'package:github_stars/resources/custom_colors.dart';
 
 AppBar defaultAppBar() {
   return AppBar(
-    title: Text('My App Bar'),
+    title: const Text('GitHub Stars'),
+    centerTitle: true,
     backgroundColor: CustomColors.primaryColor,
   );
 }
