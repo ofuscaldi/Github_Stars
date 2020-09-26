@@ -16,7 +16,7 @@ class HomeClient {
       location
       email
       url
-      starredRepositories(first: 10) {
+      starredRepositories(first: 20) {
         nodes {
           name
           description

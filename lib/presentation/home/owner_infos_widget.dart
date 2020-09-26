@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stars/core/di/service_locator.dart';
 import 'package:github_stars/domain/home/model/owner.dart';
 import 'package:github_stars/presentation/home/navigation/home_navigator.dart';
 import 'package:github_stars/resources/custom_colors.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OwnerInfosWidget extends StatelessWidget {
   const OwnerInfosWidget({@required this.owner});
@@ -50,7 +52,17 @@ class OwnerInfosWidget extends StatelessWidget {
                     children: [
                       Text('Nickname: ${_formatText(owner.login)}'),
                       Text('Email: ${_formatText(owner.email)}'),
-                      Text('URL: ${_formatText(owner.url)}'),
+                      RichText(
+                          text: TextSpan(children: [
+                        const TextSpan(text: 'URL: ', style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: _formatText(owner.url),
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch(_formatText(owner.url));
+                              })
+                      ])),
                       Text('Location: ${_formatText(owner.location)}'),
                       Text('Bio: ${_formatText(owner.bio)}')
                     ],
@@ -59,9 +71,11 @@ class OwnerInfosWidget extends StatelessWidget {
               ],
             ),
             MaterialButton(
-              child: const Text('Starred Repos'),
+              child: const Text('Starred Repositories'),
               onPressed: () {
-                sl.get<HomeNavigator>().openStarredRepositories(context, owner: owner);
+                sl
+                    .get<HomeNavigator>()
+                    .openStarredRepositories(context, owner: owner);
               },
               textColor: Colors.blue,
             )

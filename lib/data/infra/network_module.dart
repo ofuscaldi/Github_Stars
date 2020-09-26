@@ -8,6 +8,11 @@ HttpLink _provideHttpLink() {
   );
   return httpLink;
 }
+// NOTE:
+// I am aware of the danger of using a private token to access the GitHub API.
+// Under normal conditions I would have a login to fetch the user's token,
+// but for this test I found it more convenient to use my own token and
+// I will revoke it immediately after the test result.
 
 AuthLink _provideAuthLink() {
   final authLink = AuthLink(getToken: () async => 'Bearer fbd583d4482c15afcd410$authToken');

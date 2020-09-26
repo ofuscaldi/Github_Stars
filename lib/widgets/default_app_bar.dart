@@ -6,5 +6,6 @@ AppBar defaultAppBar({String title}) {
     title: Text(title),
     centerTitle: true,
     backgroundColor: CustomColors.primaryColor,
+    elevation: 0,
   );
 }

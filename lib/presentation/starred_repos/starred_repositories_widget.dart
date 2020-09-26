@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_stars/domain/home/model/repository.dart';
 import 'package:github_stars/presentation/starred_repos/repository_item_widget.dart';
+import 'package:github_stars/resources/custom_colors.dart';
 import 'package:github_stars/widgets/default_app_bar.dart';
 
 class StarredRepositoriesWidget extends StatelessWidget {
@@ -12,6 +13,7 @@ class StarredRepositoriesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: defaultAppBar(title: 'Starred Repositories'),
+      backgroundColor: CustomColors.primaryColor,
       body: ListView(
         children: _buildReposList(),
       ),
