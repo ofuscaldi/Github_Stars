@@ -9,9 +9,11 @@ class GetOwnerUseCase {
   final HomeRepository _repository;
 
   Future<Result<Owner>> execute({@required String owner}) {
-    return _repository.getOwner(owner: owner).then((Owner owner) =>
-        Result.success(data: owner)).catchError((dynamic error){
-          return Result.error(exception: error);
+    return _repository
+        .getOwner(owner: owner)
+        .then((Owner owner) => Result.success(data: owner))
+        .catchError((dynamic error) {
+      return Result.error(exception: error);
     });
   }
 }

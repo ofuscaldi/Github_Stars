@@ -4,7 +4,8 @@ import 'package:github_stars/domain/home/model/repository.dart';
 import 'package:github_stars/presentation/starred_repositories/repository_item_widget.dart';
 import 'package:github_stars/presentation/starred_repositories/starred_repositories_widget.dart';
 
-import '../../domain/model/mock_valid_repositories_list.dart';
+import '../../domain/home/model/mock_valid_repositories_list.dart';
+
 
 void main() {
   Future<void> initializeWidget(WidgetTester tester, {List<Repository> arguments}) async {

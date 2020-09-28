@@ -8,6 +8,8 @@ import 'package:github_stars/widgets/failed_request_widget.dart';
 import 'package:github_stars/widgets/loading_widget.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../parameters.dart';
+
 class _MockHomeBloc extends Mock implements HomeBloc {}
 
 void main() {
@@ -45,7 +47,7 @@ void main() {
     });
 
     await initializeWidget(tester);
-    await tester.enterText(find.byKey(HomeWidget.ownerTextField), 'anyText');
+    await tester.enterText(find.byKey(HomeWidget.ownerTextField), Parameters.owner);
     await tester.tap(find.byKey(HomeWidget.searchOwnerButton));
 
     await tester.pump();
@@ -58,7 +60,7 @@ void main() {
     });
 
     await initializeWidget(tester);
-    await tester.enterText(find.byKey(HomeWidget.ownerTextField), 'anyText');
+    await tester.enterText(find.byKey(HomeWidget.ownerTextField), Parameters.owner);
     await tester.tap(find.byKey(HomeWidget.searchOwnerButton));
 
     await tester.pump();
@@ -70,7 +72,7 @@ void main() {
 
     final ownerField = find.widgetWithText(TextFormField, 'Owner');
     final nameFormField = tester.widget<TextFormField>(ownerField);
-    expect(nameFormField.validator('ownerName'), null);
+    expect(nameFormField.validator(Parameters.owner), null);
   });
 
   testWidgets('should be failed when text is empty', (WidgetTester tester) async {

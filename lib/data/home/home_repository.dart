@@ -10,8 +10,8 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Owner> getOwner({@required String owner}) async {
-    final homeApi = await _client
+    final ownerApi = await _client
         .getOwner(owner: owner);
-    return Owner.fromApi(homeApi);
+    return Owner.fromApi(ownerApi);
   }
 }

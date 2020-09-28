@@ -7,7 +7,9 @@ import 'package:github_stars/presentation/home/bloc/home_state.dart';
 import 'package:github_stars/presentation/home/home_bloc.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../domain/model/mock_valid_owner.dart';
+import '../../domain/home/model/mock_valid_owner.dart';
+import '../../parameters.dart';
+
 
 class _MockGetOwnerUseCase extends Mock implements GetOwnerUseCase {}
 
@@ -34,20 +36,20 @@ void main() {
 
   test('Result returning success properly', () {
     final owner = getValidOwner;
-    when(_useCase.execute(owner: 'Frodo Baggins'))
+    when(_useCase.execute(owner: Parameters.owner))
         .thenAnswer((_) => Future.value(Result.success(data: owner)));
     
     expectLater(_bloc, emitsInOrder(<HomeState>[HomeLoadingState(), ShowOwnerInfoState(owner: owner)]));
 
-    _bloc.add(SearchOwnerEvent(owner: 'Frodo Baggins'));
+    _bloc.add(SearchOwnerEvent(owner: Parameters.owner));
   });
 
   test('Result returning error properly', () {
-    when(_useCase.execute(owner: 'Frodo Baggins'))
+    when(_useCase.execute(owner: Parameters.owner))
         .thenAnswer((_) => Future.value(Result.error()));
 
     expectLater(_bloc, emitsInOrder(<HomeState>[HomeLoadingState(), HomeFailedState()]));
 
-    _bloc.add(SearchOwnerEvent(owner: 'Frodo Baggins'));
+    _bloc.add(SearchOwnerEvent(owner: Parameters.owner));
   });
 }
