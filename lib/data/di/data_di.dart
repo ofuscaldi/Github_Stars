@@ -8,7 +8,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 void setup(GetIt sl) {
   sl.registerLazySingleton(() => network_module.provideGraphQLClient());
 
-  sl.registerLazySingleton<HomeClient>(() => HomeClient(sl.get<GraphQLClient>()));
+  sl.registerLazySingleton<HomeClient>(
+      () => HomeClient(sl.get<GraphQLClient>()));
 
-  sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl.get<HomeClient>()));
+  sl.registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(sl.get<HomeClient>()));
 }

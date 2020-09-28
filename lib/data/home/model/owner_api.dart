@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:github_stars/data/home/model/repository_api.dart';
 
 class OwnerApi {
@@ -18,9 +19,24 @@ class OwnerApi {
       location: json['location'] as String,
       bio: json['bio'] as String,
       starredRepos: (json['starredRepositories']['nodes'] as List)
-          .map((dynamic e) =>
-              e == null ? null : RepositoryApi.fromJson(e as Map<String, dynamic>))
+          .map((dynamic e) => e == null
+              ? null
+              : RepositoryApi.fromJson(e as Map<String, dynamic>))
           .toList());
+
+  Map<String, dynamic> toJson(OwnerApi ownerApi) => <String, dynamic>{
+        'login': ownerApi.login,
+        'email': ownerApi.email,
+        'url': ownerApi.url,
+        'avatarUrl': ownerApi.avatarUrl,
+        'location': ownerApi.location,
+        'bio': ownerApi.bio,
+        'starredRepositories': <String, dynamic>{
+          'nodes': ownerApi.starredRepos
+              .map((repo) => RepositoryApi.toJson(repo))
+              .toList()
+        }
+      };
 
   final String login;
   final String email;
@@ -41,7 +57,7 @@ class OwnerApi {
           avatarUrl == other.avatarUrl &&
           location == other.location &&
           bio == other.bio &&
-          starredRepos == other.starredRepos;
+          listEquals(starredRepos, other.starredRepos);
 
   @override
   int get hashCode =>

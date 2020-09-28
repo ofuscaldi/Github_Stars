@@ -15,7 +15,8 @@ HttpLink _provideHttpLink() {
 // I will revoke it immediately after the test result.
 
 AuthLink _provideAuthLink() {
-  final authLink = AuthLink(getToken: () async => 'Bearer fbd583d4482c15afcd410$authToken');
+  final authLink =
+      AuthLink(getToken: () async => 'Bearer fbd583d4482c15afcd410$authToken');
   return authLink;
 }
 
@@ -36,8 +37,8 @@ String uuidFromObject(Object object) {
 }
 
 OptimisticCache get cache => OptimisticCache(
-  dataIdFromObject: uuidFromObject,
-);
+      dataIdFromObject: uuidFromObject,
+    );
 
 GraphQLClient provideGraphQLClient() {
   return GraphQLClient(

@@ -33,10 +33,11 @@ class HomeClient {
     final queryResult = await _graphQLClient.query(QueryOptions(
         documentNode: gql(_getOwnerQuery),
         variables: <String, String>{'user': owner}));
-    final Object repositoryOwner = queryResult.data['repositoryOwner'];
-    if (repositoryOwner == null || queryResult.hasException) {
-      return Future.error('error');
+    if (queryResult.hasException) {
+      return Future.error(queryResult.exception);
     }
+
+    final Object repositoryOwner = queryResult.data['repositoryOwner'];
     return OwnerApi.fromJson(repositoryOwner);
   }
 }
