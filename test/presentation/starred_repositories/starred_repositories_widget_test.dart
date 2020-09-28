@@ -14,7 +14,7 @@ void main() {
   }
 
   testWidgets('Repositories shows properly', (WidgetTester tester) async {
-    await initializeWidget(tester, arguments: validRepository);
+    await initializeWidget(tester, arguments: getValidRepositoriesList);
 
     expect(find.byKey(StarredRepositoriesWidget.repositoriesListKey), findsOneWidget);
     expect(find.byKey(RepositoryItemWidget.repositoryNameKey), findsWidgets);

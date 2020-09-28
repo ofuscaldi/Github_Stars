@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:github_stars/domain/home/model/repository.dart';
 
-List<Repository> get validRepository {
+List<Repository> get getValidRepositoriesList {
   final list = [
     Repository(
         name: 'repo1',

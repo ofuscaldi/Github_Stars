@@ -22,8 +22,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           yield HomeFailedState();
         }
 
-    } else if (event is BuildHomeEvent) {
-      yield HomeInitState();
     }
   }
 }
