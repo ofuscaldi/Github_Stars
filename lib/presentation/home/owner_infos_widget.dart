@@ -9,7 +9,6 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OwnerInfoWidget extends StatelessWidget {
-
   const OwnerInfoWidget({@required this.owner});
 
   static const loginTextFieldKey = Key('Login_Text_field');
@@ -58,22 +57,34 @@ class OwnerInfoWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nickname: ${_formatText(owner.login)}', key: loginTextFieldKey),
-                      Text('Email: ${_formatText(owner.email)}', key: emailTextFieldKey,),
+                      Text('Nickname: ${_formatText(owner.login)}',
+                          key: loginTextFieldKey),
+                      Text(
+                        'Email: ${_formatText(owner.email)}',
+                        key: emailTextFieldKey,
+                      ),
                       RichText(
-                        key: urlTextFieldKey,
+                          key: urlTextFieldKey,
                           text: TextSpan(children: [
-                        const TextSpan(text: 'URL: ', style: TextStyle(color: Colors.black)),
-                        TextSpan(
-                            text: _formatText(owner.url),
-                            style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch(_formatText(owner.url));
-                              })
-                      ])),
-                      Text('Location: ${_formatText(owner.location)}', key: locationTextFieldKey,),
-                      Text('Bio: ${_formatText(owner.bio)}', key: bioTextFieldKey,)
+                            const TextSpan(
+                                text: 'URL: ',
+                                style: TextStyle(color: Colors.black)),
+                            TextSpan(
+                                text: _formatText(owner.url),
+                                style: const TextStyle(color: Colors.blue),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launch(_formatText(owner.url));
+                                  })
+                          ])),
+                      Text(
+                        'Location: ${_formatText(owner.location)}',
+                        key: locationTextFieldKey,
+                      ),
+                      Text(
+                        'Bio: ${_formatText(owner.bio)}',
+                        key: bioTextFieldKey,
+                      )
                     ],
                   ),
                 ),

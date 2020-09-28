@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
-
-  static const circularProgressIndicatorKey = Key('Circular_Progress_Indicator_Key');
+  static const circularProgressIndicatorKey =
+      Key('Circular_Progress_Indicator_Key');
 
   @override
   Widget build(BuildContext context) {

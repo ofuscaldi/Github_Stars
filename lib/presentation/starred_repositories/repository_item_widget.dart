@@ -8,7 +8,8 @@ class RepositoryItemWidget extends StatelessWidget {
 
   static const repositoryNameKey = Key('Repository_Name_Key');
   static const repositoryDescriptionKey = Key('Repository_Description_Key');
-  static const repositoryFavoritesCountKey = Key('Repository_Favorites_Count_Key');
+  static const repositoryFavoritesCountKey =
+      Key('Repository_Favorites_Count_Key');
 
   final Repository repo;
 
@@ -47,7 +48,8 @@ class RepositoryItemWidget extends StatelessWidget {
                         Text(
                           _formatText(repo.stars.toString()),
                           key: repositoryFavoritesCountKey,
-                          style: const TextStyle(color: CustomColors.primaryColor),
+                          style:
+                              const TextStyle(color: CustomColors.primaryColor),
                         )
                       ],
                     )

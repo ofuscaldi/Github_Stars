@@ -21,8 +21,9 @@ class Owner {
         avatarUrl: api.avatarUrl,
         location: api.location,
         bio: api.bio,
-        starredRepos:
-            (api.starredRepos).map((RepositoryApi repoApi) => Repository.fromApi(repoApi)).toList());
+        starredRepos: (api.starredRepos)
+            .map((RepositoryApi repoApi) => Repository.fromApi(repoApi))
+            .toList());
   }
 
   final String login;

@@ -15,13 +15,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is SearchOwnerEvent) {
       yield HomeLoadingState();
       final result = await _getOwnerUseCase.execute(owner: event.owner);
-        if(result.succeeded()){
-          final success = result as Success<Owner>;
-          yield ShowOwnerInfoState(owner: success.data);
-        } else {
-          yield HomeFailedState();
-        }
-
+      if (result.succeeded()) {
+        final success = result as Success<Owner>;
+        yield ShowOwnerInfoState(owner: success.data);
+      } else {
+        yield HomeFailedState();
+      }
     }
   }
 }

@@ -4,7 +4,8 @@ class Repository {
   Repository({this.name, this.description, this.stars});
 
   factory Repository.fromApi(RepositoryApi api) {
-    return Repository(name: api.name, description: api.description, stars: api.stars);
+    return Repository(
+        name: api.name, description: api.description, stars: api.stars);
   }
 
   final String name;
