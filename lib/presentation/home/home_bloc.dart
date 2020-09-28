@@ -6,7 +6,7 @@ import 'package:github_stars/presentation/home/bloc/home_event.dart';
 import 'package:github_stars/presentation/home/bloc/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc(this._getOwnerUseCase) : super(HomeLoadedState());
+  HomeBloc(this._getOwnerUseCase) : super(HomeInitState());
 
   final GetOwnerUseCase _getOwnerUseCase;
 
@@ -23,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
 
     } else if (event is BuildHomeEvent) {
-      yield HomeLoadedState();
+      yield HomeInitState();
     }
   }
 }

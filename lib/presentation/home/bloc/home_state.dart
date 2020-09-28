@@ -3,11 +3,11 @@ import 'package:github_stars/domain/home/model/owner.dart';
 
 abstract class HomeState {}
 
-class HomeLoadedState extends HomeState {
+class HomeInitState extends HomeState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HomeLoadedState && runtimeType == other.runtimeType;
+      other is HomeInitState && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => 0;

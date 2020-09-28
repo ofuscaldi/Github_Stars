@@ -6,6 +6,10 @@ import 'package:github_stars/resources/text_style.dart';
 class RepositoryItemWidget extends StatelessWidget {
   const RepositoryItemWidget({@required this.repo});
 
+  static const repositoryNameKey = Key('Repository_Name_Key');
+  static const repositoryDescriptionKey = Key('Repository_Description_Key');
+  static const repositoryFavoritesCountKey = Key('Repository_Favorites_Count_Key');
+
   final Repository repo;
 
   @override
@@ -30,6 +34,7 @@ class RepositoryItemWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         '${_formatText(repo.name)}',
+                        key: repositoryNameKey,
                         style: repositoryTitleStyle,
                       ),
                     ),
@@ -41,6 +46,7 @@ class RepositoryItemWidget extends StatelessWidget {
                         ),
                         Text(
                           _formatText(repo.stars.toString()),
+                          key: repositoryFavoritesCountKey,
                           style: const TextStyle(color: CustomColors.primaryColor),
                         )
                       ],
@@ -50,6 +56,7 @@ class RepositoryItemWidget extends StatelessWidget {
               ),
               Text(
                 '${_formatText(repo.description)}',
+                key: repositoryDescriptionKey,
                 style: repositoryDescriptionStyle,
               ),
             ],

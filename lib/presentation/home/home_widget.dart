@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_stars/core/di/service_locator.dart';
 import 'package:github_stars/presentation/home/bloc/home_event.dart';
 import 'package:github_stars/presentation/home/bloc/home_state.dart';
@@ -9,25 +10,18 @@ import 'package:github_stars/widgets/failed_request_widget.dart';
 import 'package:github_stars/widgets/loading_widget.dart';
 
 class HomeWidget extends StatefulWidget {
+  static const ownerTextField = Key('Owner_Text_Field');
+  static const searchOwnerButton = Key('Search_Owner_Button');
+  static const addOwnerTextKey = Key('Add_Owner_Text_Key');
+
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  HomeBloc _bloc;
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _ownerController = TextEditingController();
-
-  @override
-  void initState() {
-    _bloc = sl.get<HomeBloc>();
-    super.initState();
-  }
-
-  void initBloc() {
-    _bloc.add(BuildHomeEvent());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +37,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: Form(
                   key: _formKey,
                   child: TextFormField(
+                    key: HomeWidget.ownerTextField,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'This field cannot be empty!';
@@ -55,11 +50,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                 )),
                 FlatButton(
+                  key: HomeWidget.searchOwnerButton,
                   child: const Text('Search'),
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
-                      _bloc.add(SearchOwnerEvent(owner: _ownerController.text));
+                      sl
+                          .get<HomeBloc>()
+                          .add(SearchOwnerEvent(owner: _ownerController.text));
                     }
                   },
                 )
@@ -70,31 +68,38 @@ class _HomeWidgetState extends State<HomeWidget> {
             padding: EdgeInsets.all(8),
           ),
           Expanded(
-            child: StreamBuilder<HomeState>(
-              initialData: HomeLoadedState(),
-              stream: _bloc,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return buildLayout(snapshot.data);
-              },
+            child: BlocProvider(
+              create: (_) => sl.get<HomeBloc>(),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                buildWhen: (previousState, state) {
+                  return state is HomeLoadingState ||
+                      state is HomeInitState ||
+                      state is ShowOwnerInfoState ||
+                      state is HomeFailedState;
+                },
+                builder: (context, state) {
+                  if (state is HomeFailedState) {
+                    return FailedRequestWidget();
+                  } else if (state is HomeLoadingState) {
+                    return LoadingWidget();
+                  } else if (state is ShowOwnerInfoState) {
+                    return OwnerInfoWidget(
+                      owner: state.owner,
+                    );
+                  }
+                  return Container(
+                    child: const Center(
+                        child: Text(
+                      'Enter the username in the field above',
+                      key: HomeWidget.addOwnerTextKey,
+                    )),
+                  );
+                },
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget buildLayout(HomeState state) {
-    if (state is HomeFailedState) {
-      return FailedRequestWidget();
-    } else if (state is HomeLoadingState) {
-      return LoadingWidget();
-    } else if (state is ShowOwnerInfoState) {
-      return OwnerInfosWidget(
-        owner: state.owner,
-      );
-    }
-    return Container(
-      child: const Center(child: Text('Enter the username in the field above')),
     );
   }
 }
